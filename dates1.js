@@ -296,7 +296,7 @@ const hora = nd.getTime() + 36000000
         ));
         table2+='</tbody>';
         table2+='</table>'
-        $('#div1').append(table2);//lleno el div
+        $('#div1').append(table2);//lleno el divvv
   }
 
 
