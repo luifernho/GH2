@@ -273,38 +273,38 @@ const hora = nd.getTime() + 36000000
     console.log(employ);
 
         //---------------------------- MOSTRAR TODOS --------------------------------------
-        //var table2 = '<table class="highlight">';
+        var table2 = '<div class="container"><ul class="collapsible expandable">';
         
         //table2+='<thead><tr><th>Documento</th><th>Nombres</th><th>Fecha</th><th>Tiempo Turno</th></tr></thead>';
         //table2+='<tbody>'; 
-        var table2='<div class="container"><ul class="collapsible expandable"><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>FirstJAVA <span class="badge">1</span></div><div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>First<span class="badge">1</span></div> <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li></ul></div>';
-        table+="<script> var elem = document.querySelector('.collapsible.expandable');var instance = M.Collapsible.init(elem, { accordion: false });</script>";    
-        employes.forEach(x=>(
+        // var table2='<div class="container"><ul class="collapsible expandable"><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>FirstJAVA <span class="badge">1</span></div><div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>First<span class="badge">1</span></div> <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li></ul></div>';
+        // table+="<script> var elem = document.querySelector('.collapsible.expandable');var instance = M.Collapsible.init(elem, { accordion: false });</script>";    
+         employes.forEach(x=>(
           console.log(x),
-          // table2+='<li>', 
-          // table2+='<div class="collapsible-header">',
-          // table2+='<i class="material-icons">face</i>',  
-          // table2+=x.doc, table2+= ' - '+x.names, 
-          // table2+='<span class="new badge">',
-          // table2+=x.otrodiaTurno.length, 
-          // table2+='</span>', 
-          // table2+='</div>',
-          // table2+= '<div class="collapsible-body">',
-          // table2+= '<p>sssssss</p>',
-          // table2+= '</div></li>',      
-          // console.log(x.doc+'xxxxxxxxxxxxxxxxx'),
-          // console.log(x.names+'xxxxxxxxxxxxxxxxx'),
+           table2+='<li>', 
+           table2+='<div class="collapsible-header">',
+           table2+='<i class="material-icons">face</i>',  
+           table2+=x.doc, table2+= ' - '+x.names, 
+           table2+='<span class="new badge">',
+           table2+=x.otrodiaTurno.length, 
+           table2+='</span>', 
+           table2+='</div>',
+           table2+= '<div class="collapsible-body">',
+           table2+= '<p>sssssss</p>',
+           table2+= '</div></li>',      
+           console.log(x.doc+'xxxxxxxxxxxxxxxxx'),
+           console.log(x.names+'xxxxxxxxxxxxxxxxx'),
             x.otrodiaTurno.forEach(x=>(console.log(new Date(new Date(x.name).getTime() + x.turnoCompleto).getHours()
             + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes()),
-            console.log(x.name+' '+new Date(x.name))            
-            //table2+='<p>', 
-            //table2+= x.name, 
-            //table2+='  ', 
-            /*table2+= new Date(
+            console.log(x.name+' '+new Date(x.name)),            
+            table2+='<p>', 
+            table2+= x.name, 
+            table2+='  ', 
+            table2+= new Date(
               new Date(x.name+' ').getTime() 
             + x.turnoCompleto).getHours()
             + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), 
-            table2+='</p>'*/         
+            table2+='</p>'         
         
             ))
           //table2+='</div>',
