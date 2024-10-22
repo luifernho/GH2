@@ -1,6 +1,6 @@
 $(document).ready(function(){
     console.log('conectado a dates1.js');
-    $('.collapsible.expandable').collapsible();      
+    //$('.collapsible.expandable').collapsible();   
 
    // $('#btn1').click(loadDoc)
 
@@ -12,19 +12,9 @@ $(document).ready(function(){
 
 
 const empleado = {
-    names: 'Diana Fernanda',
+    names: '',
     registros:[
-        '2024-08-07 7:17:49',
-        '2024-08-08 12:03:49',
-        '2024-08-07 13:00:49',
-        '2024-08-08 17:17:49',
-        '2024-08-08 8:01:49',
-        '2024-08-07 11:56:49',
-        '2024-08-07 12:49:49',
-        '2024-08-07 17:17:49',
-        '2024-08-06 8:01:49',
-        '2024-08-06 11:56:49',
-        '2024-08-06 12:49:49',        
+              
     ],
     diaTurno:[],
     turnoCompleto:[],
@@ -273,7 +263,8 @@ const hora = nd.getTime() + 36000000
     console.log(employ);
 
         //---------------------------- MOSTRAR TODOS --------------------------------------
-        var collap = '<div class="container"><ul class="collapsible expandable">';
+
+        var collap = '<div class="container"><ul class="collapsible expandable">\n';
         
         //table2+='<thead><tr><th>Documento</th><th>Nombres</th><th>Fecha</th><th>Tiempo Turno</th></tr></thead>';
         //table2+='<tbody>'; 
@@ -281,9 +272,9 @@ const hora = nd.getTime() + 36000000
         // table+="<script> var elem = document.querySelector('.collapsible.expandable');var instance = M.Collapsible.init(elem, { accordion: false });</script>";    
          employes.forEach(x=>(
           console.log(x),
-           collap+='<li>', 
-           collap+='<div class="collapsible-header">',
-           collap+='<i class="material-icons">face</i>',  
+           collap+='<li>\n', 
+           collap+='<div class="collapsible-header">\n',
+           collap+='<i class="material-icons">face</i>\n',  
            collap+=x.doc, collap+= ' - '+x.names, 
            collap+='<span class="new badge">',
            collap+=x.otrodiaTurno.length, 
@@ -302,13 +293,15 @@ const hora = nd.getTime() + 36000000
             collap+= new Date(
               new Date(x.name+' ').getTime() 
             + x.turnoCompleto).getHours()
-            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), 
-            collap+='</p>'         
+            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(),
+            x.registros.forEach(r=>(collap+="--"+new Date(r)+"--")),   
+            collap+='</p>'            
+                   
         
             )), 
             collap+= '</div></li>'
         ));
-        //table2+='</ul>';
+        collap+='</ul></div>';
 
         $('#div1').append(collap);//lleno el divvv
   }
