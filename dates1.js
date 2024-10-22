@@ -1,6 +1,5 @@
-$(document).ready(function(){
+$(document).ready(function(){//Ejecutar ver al cargar la pagina y cargar archivo a leer
     console.log('conectado a dates1.js');
-    //$('.collapsible.expandable').collapsible();   
 
    // $('#btn1').click(loadDoc)
 
@@ -9,7 +8,6 @@ $(document).ready(function(){
       dataType: 'text',
     }).done(ver);
 })
-
 
 const empleado = {
     names: '',
@@ -29,8 +27,6 @@ const diasTurno ={
     tiempoAlmuerzo:0
 };
 
-//console.log(empleado);
-//$('body').append(`<p>${empleado.names}</p>`);
 
 const date1 = new Date(empleado.registros[0]);
 const date2 = new Date(empleado.registros[3])
@@ -56,7 +52,6 @@ function ordernarDate(empleado){
 //------------------------------------------------------------------------------------------------------------
 //tiempo del turno
 
-console.log('***********'+empleado.registros.length);
 
 function tiempoTurno(empleado){
     let fTurnIni =0;
@@ -119,71 +114,31 @@ function tiempoTurno(empleado){
     turnoCompleto.forEach(x=>(empleado.turnoCompleto.push(x)));
     set.forEach(x=>(empleado.diaTurno.push(x)));   
 
-    //console.log(set);    
-    //console.log(turnoCompleto);
-    //console.log(empleado);
-
 }
-//-----------------------------------------------------------------------------------------------------------
-
-//ordernarDate(empleado);
-//tiempoTurno(empleado);
-
-
-/*empleado.registros.forEach(element => {
-    let F = new Date(element);
-    console.log(F);
-}); */
-    
-
-
-const nd = new Date (2024,7,8);
-const hora = nd.getTime() + 36000000 
-//console.log(nd+"Fecha con hora en ceros "+new Date(hora));
-
-//-------------------------------------------------------------------------------------------------------------
-
+//fin funcion tiempo turno-----------------------------------------------------------------------------------------------------------
 
 //--------Cargar documento-------------
-
-/*function loadDoc() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        //document.getElementById("div1").innerHTML = this.responseText;
-        $('#div1').text(this.responseText);
-        console.log(this.responseText);
-      }
-    };
-    xhttp.open("GET", "text1.txt");
-    xhttp.send();
-  }*/
   
   //Ver contenido del archivo en consola, alert y body del html
-  const ver = (data)=>{alert(data);successFunction(data);console.log(verR(data))};
-  function verR (data){var R= data.split(/\r?\n|\r/); return R[1];};
+  const ver = (data)=>{/*alert(data);*/successFunction(data);/*console.log(verR(data))*/};
+  //function verR (data){var R= data.split(/\r?\n|\r/); return R[1];};
 
   // Agregando datos en la tabla-------------------------------------------------
-
-
-
-
-
 
   function successFunction(data) {
     
     const employes = []; // listar empleados
     let employ = new Set (); //lista de empleados sin repetir
     var allRows = data.split(/\r?\n|\r/);//convertir data en filas
-    var table = '<table class="highlight">';
+    //var table = '<table class="highlight">';
     //recorrer las filas
     for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
       
       if (singleRow === 0) {
-        table += '<thead>';
-        table += '<tr>';
+        //table += '<thead>';
+        //table += '<tr>';
       } else {
-        table += '<tr>';
+        //table += '<tr>';
       }
       var rowCells = allRows[singleRow].split(';');//dividir fila en celdas
       //sino existe employ agregretar el 1ro --------------LISTAR EMPLEADOS ----------------------
@@ -193,16 +148,15 @@ const hora = nd.getTime() + 36000000
       }
       else{for(let x=0; x < employes.length; x++){if(employes[x].doc==rowCells[1]){employes[x].reg.push(rowCells[3])}}};
       // --------------------------------------------------FIN LISTAR EMPLEADOS -------------------
-
       
       if(singleRow===0){rowCells.push("Turno");}else{rowCells.push("")}//Agregamos columna Turno
       if(singleRow===0){rowCells.push("Almuerzo");}else{rowCells.push("")}//Agregamos columna Almuerzo
       //Recorrer celdas de la fila
       for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
         if (singleRow === 0) {
-          table += '<th>';
-          table += rowCells[rowCell];
-          table += '</th>';
+          //table += '<th>';
+          //table += rowCells[rowCell];
+          //table += '</th>';
         } else {
           /*if(!employ.has(rowCells[1])){employ.add(rowCells[1]);
             employes.push({
@@ -210,17 +164,17 @@ const hora = nd.getTime() + 36000000
             doc: rowCells[1],
           })         
           };//Agregamos cada empleado*/
-          table += '<td>';
-          table += rowCells[rowCell];
-          table += '</td>';
+          //table += '<td>';
+          //table += rowCells[rowCell];
+          //table += '</td>';
         }
       }
       if (singleRow === 0) {
-        table += '</tr>';
-        table += '</thead>';
-        table += '<tbody>';
+        //table += '</tr>';
+        //table += '</thead>';
+        //table += '<tbody>';
       } else {
-        table += '</tr>';
+        //table += '</tr>';
       }
     } 
 
@@ -256,13 +210,13 @@ const hora = nd.getTime() + 36000000
 
     //--------------------------- FIN TIEMPOS TURNOS ----------------------------------
 
-    table += '</tbody>';
-    table += '</table>';
+    //table += '</tbody>';
+    //table += '</table>';
     //$('body').append(table);
-    console.log(employes[1]);
-    console.log(employ);
+    //console.log(employes[1]);
+    //console.log(employ);
 
-        //---------------------------- MOSTRAR TODOS --------------------------------------
+        //---------------------------- MOSTRAR TODOS en collapsibles --------------------------------------
 
         var collap = '<div class="container"><ul class="collapsible expandable">\n';
         
