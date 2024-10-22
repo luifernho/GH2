@@ -266,11 +266,7 @@ const hora = nd.getTime() + 36000000
 
         var collap = '<div class="container"><ul class="collapsible expandable">\n';
         
-        //table2+='<thead><tr><th>Documento</th><th>Nombres</th><th>Fecha</th><th>Tiempo Turno</th></tr></thead>';
-        //table2+='<tbody>'; 
-        // var table2='<div class="container"><ul class="collapsible expandable"><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>FirstJAVA <span class="badge">1</span></div><div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li><li><div class="collapsible-header"><i class="material-icons">filter_drama</i>First<span class="badge">1</span></div> <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div></li></ul></div>';
-        // table+="<script> var elem = document.querySelector('.collapsible.expandable');var instance = M.Collapsible.init(elem, { accordion: false });</script>";    
-         employes.forEach(x=>(
+        employes.forEach(x=>(
           console.log(x),
            collap+='<li>\n', 
            collap+='<div class="collapsible-header">\n',
