@@ -28,10 +28,6 @@ const diasTurno ={
 };
 
 
-const date1 = new Date(empleado.registros[0]);
-const date2 = new Date(empleado.registros[3])
-const result1 = new Date (date2 - date1);
-
 /*console.log(date1+" \n"+date2+" \n"+result1.getHours()+":"+result1.getMinutes()+
 "::"+result1.getUTCMinutes()+"\n\n\n\n\n\n");*/
 
@@ -251,7 +247,13 @@ function tiempoTurno(empleado){
             )), 
             collap+= '</div></li>'
         ));
-        collap+='</ul></div>';
+        collap+='</ul></div>\n';
+        collap+= '<script>\n'+
+        'var elem = document.querySelector(".collapsible.expandable");\n'+
+        'var instance = M.Collapsible.init(elem, {\n'+
+        'accordion: true\n'+
+        '});\n'+         
+        '</script>\n'
 
         $('#div1').append(collap);//lleno el divvv
   }
