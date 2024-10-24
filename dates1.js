@@ -230,24 +230,31 @@ function tiempoTurno(empleado){
                 
            console.log(x.doc+'xxxxxxxxxxxxxxxxx'),
            console.log(x.names+'xxxxxxxxxxxxxxxxx'),
-            x.otrodiaTurno.forEach(x=>(console.log(new Date(new Date(x.name).getTime() + x.turnoCompleto).getHours()
+            x.otrodiaTurno.forEach(x=>(console.log(new Date(new Date(x.name).getTime() + x.turnoCompleto).getHours()//recorrer cada día
             + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes()),
             console.log(x.name+' '+new Date(x.name)),            
             collap+='<p>', 
             collap+= x.name, 
-            collap+='  ', 
+            collap+='  --Turno->  ', 
             collap+= new Date(
               new Date(x.name+' ').getTime() 
             + x.turnoCompleto).getHours()
-            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(),
-            x.registros.forEach(r=>(collap+="--"+new Date(r)+"--")),   
-            collap+='</p>'            
+            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), //formatear en horas y minutos  el total del turno
+            collap+='--Almuerzo->',            
+            collap+= new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getHours()+":"+
+                     new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getMinutes(),
+            collap+="--",
+            collap+=" -- Registros -->",
+
+
+                x.registros.forEach(r=>(collap+=" -- "+new Date(r).getHours()+":"+ new Date(r).getMinutes() +"--")),//recorrer los registros del día  
+                collap+='</p>'        
                    
-        
             )), 
             collap+= '</div></li>'
         ));
         collap+='</ul></div>\n';
+
         collap+= '<script>\n'+
         'var elem = document.querySelector(".collapsible.expandable");\n'+
         'var instance = M.Collapsible.init(elem, {\n'+
