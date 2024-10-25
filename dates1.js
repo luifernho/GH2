@@ -118,6 +118,33 @@ function tiempoTurno(empleado){
   //Ver contenido del archivo en consola, alert y body del html
   const ver = (data)=>{/*alert(data);*/successFunction(data);/*console.log(verR(data))*/};
   //function verR (data){var R= data.split(/\r?\n|\r/); return R[1];};
+// día de la semana
+function dia(dia){
+  let day;
+  switch (new Date(dia).getDay()) {
+    case 0:
+      day = "Domingo";
+      break;
+    case 1:
+      day = "Lunes";
+      break;
+    case 2:
+       day = "Martes";
+      break;
+    case 3:
+      day = "Miercoles";
+      break;
+    case 4:
+      day = "Jueves";
+      break;
+    case 5:
+      day = "Viernes";
+      break;
+    case 6:
+      day = "Sabado";
+  }
+  return day
+}
 
   // Agregando datos en la tabla-------------------------------------------------
 
@@ -227,56 +254,83 @@ function tiempoTurno(empleado){
            collap+='</span>', 
            collap+='</div>',
            collap+= '<div class="collapsible-body">',
-           collap+='<table class="striped">\n'+
-        '<thead>\n'+
-          '<tr>\n'+
-              '<th>Name</th>\n'+
-              '<th>Item Name</th>\n'+
-              '<th>Item Price</th>\n'+
-          '</tr>\n'+
-        '</thead>\n'+
-        '<tbody>\n'+
-          '<tr>\n'+
-            '<td>Alvin</td>\n'+
-            '<td>Eclair</td>\n'+
-            '<td>$0.87</td>\n'+
-          '</tr>\n'+
-          '<tr>\n'+
-            '<td>Alan</td>\n'+
-            '<td>Jellybean</td>\n'+
-            '<td>$3.76</td>\n'+
-          '</tr>\n'+
-          '<tr>\n'+
-            '<td>Jonathan</td>\n'+
-            '<td>Lollipop</td>\n'+
-            '<td>$7.00</td>\n'+
-          '</tr>\n'+
-        '</tbody>\n'+
-      '</table>\n',          
+
+      //      collap+='<table class="striped">\n'+
+      //   '<thead>\n'+
+      //     '<tr>\n'+
+      //         '<th>Name</th>\n'+
+      //         '<th>Item Name</th>\n'+
+      //         '<th>Item Price</th>\n'+
+      //     '</tr>\n'+
+      //   '</thead>\n'+
+      //   '<tbody>\n'+
+      //     '<tr>\n'+
+      //       '<td>Alvin</td>\n'+
+      //       '<td>Eclair</td>\n'+
+      //       '<td>$0.87</td>\n'+
+      //     '</tr>\n'+
+      //     '<tr>\n'+
+      //       '<td>Alan</td>\n'+
+      //       '<td>Jellybean</td>\n'+
+      //       '<td>$3.76</td>\n'+
+      //     '</tr>\n'+
+      //     '<tr>\n'+
+      //       '<td>Jonathan</td>\n'+
+      //       '<td>Lollipop</td>\n'+
+      //       '<td>$7.00</td>\n'+
+      //     '</tr>\n'+
+      //   '</tbody>\n'+
+      // '</table>\n',          
                 
            console.log(x.doc+'xxxxxxxxxxxxxxxxx'),
            console.log(x.names+'xxxxxxxxxxxxxxxxx'),
+
+           collap+='<table class="striped">\n'+
+                    '<thead>\n'+
+                      '<tr>\n'+
+                        '<th>Día</th>\n'+                        
+                        '<th>Fecha</th>\n'+
+                        '<th>Turno</th>\n'+
+                        '<th>Almuerzo</th>\n'+
+                        '<th>Registros</th>\n'+
+                      '</tr>\n'+
+                    '</thead>\n'+
+                    '<tbody>\n',
+
             x.otrodiaTurno.forEach(x=>(console.log(new Date(new Date(x.name).getTime() + x.turnoCompleto).getHours()//recorrer cada día
             + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes()),
             console.log(x.name+' '+new Date(x.name)),            
-            collap+='<p>', 
-            collap+= x.name, 
-            collap+='  --Turno->  ', 
+            collap+='<tr>',
+            collap+='<td>', 
+            collap+= dia(x.name+" "),
+            collap+='</td>', 
+            collap+='<td>', 
+            collap+= x.name,
+            collap+='</td>', 
+            //collap+='  --Turno->  ', 
+            collap+='<td>',
             collap+= new Date(
               new Date(x.name+' ').getTime() 
             + x.turnoCompleto).getHours()
-            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), //formatear en horas y minutos  el total del turno
-            collap+='--Almuerzo->',            
+            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), //formatear en horas y minutos  el total del turno            
+            collap+='</td>',  
+            //collap+='--Almuerzo->',
+            collap+='<td>',          
             collap+= new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getHours()+":"+
                      new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getMinutes(),
-            collap+="--",
-            collap+=" -- Registros -->",
+            //collap+="--",
+            collap+='</td>',
+            //collap+=" -- Registros -->",
+            collap+='<td>',
 
 
                 x.registros.forEach(r=>(collap+=" -- "+new Date(r).getHours()+":"+ new Date(r).getMinutes() +"--")),//recorrer los registros del día  
-                collap+='</p>'        
+            collap+='</td>',
+            collap+='</tr>'        
                    
-            )), 
+            )),
+            collap+=  '</tbody>\n'+
+                    '</table>\n',     
             collap+= '</div></li>'
         ));
         collap+='</ul></div>\n';
