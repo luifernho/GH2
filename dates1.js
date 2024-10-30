@@ -1,14 +1,48 @@
 $(document).ready(function(){ //Ejecutar funcion "ver" al cargar la pagina y cargar archivo a leer
     console.log('conectado a dates1.js');
 
-   // $('#btn1').click(loadDoc)
+   // $('#btn1').click(loadDoc)  
+   $('#btn1').click(loadDoc) 
 
+   function loadDoc(){
     $.ajax({
       url: 'gh1.csv',
       dataType: 'text',
-    }).done(ver);
-})
+    }).done(successFunction)
+   }  
+   
+    // $.ajax({
+    //   url: 'gh1.csv',
+    //   dataType: 'text',
+    // }).done(btn);
 
+    //Seleccionar archivo desde el navegador
+
+    const fileSelector = document.getElementById('fl');
+    fileSelector.addEventListener('change', event=>{
+      const fileList = event.target.files;
+      console.log(fileList[0]);
+
+      const reader = new FileReader();
+      reader.addEventListener('load', (event)=>{
+        const img = document.getElementById('img1');
+        //img.src = event.target.result;    
+        console.log(event.target.result);
+        let doc = event.target.result;
+        successFunction(doc)
+          
+      })
+      //reader.readAsDataURL(fileList[0]);
+      reader.readAsText(fileList[0])
+      //reader.onload(console.log(reader.result));
+    })
+
+   
+
+
+
+})
+//-----------fin document.ready
 const empleado = {
     names: '',
     registros:[
@@ -18,7 +52,7 @@ const empleado = {
     turnoCompleto:[],
     otrodiaTurno:[],
     
-}
+};
 
 const diasTurno ={
     name:'',
