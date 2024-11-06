@@ -10,15 +10,17 @@ $(document).ready(function(){ //Ejecutar funcion "ver" al cargar la pagina y car
       dataType: 'text',
     }).done(successFunction)
    }  
-   
+   //----Cargar archivo local al abrir la pagina
     // $.ajax({
     //   url: 'gh1.csv',
     //   dataType: 'text',
     // }).done(btn);
+    //-------------------------------------------
 
     //Seleccionar archivo desde el navegador
 
     const fileSelector = document.getElementById('fl');
+
     fileSelector.addEventListener('change', event=>{
       const fileList = event.target.files;
       console.log(fileList[0]);
@@ -35,14 +37,89 @@ $(document).ready(function(){ //Ejecutar funcion "ver" al cargar la pagina y car
       //reader.readAsDataURL(fileList[0]);
       reader.readAsText(fileList[0])
       //reader.onload(console.log(reader.result));
-    })
+    });  
 
-   
 
+    //DRAG AND DROP ---------------------------------
+
+const dropArea = document.querySelector(".drop-area");
+const dragText = dropArea.querySelector("h3");
+const button = dropArea.querySelector("button");
+const input = dropArea.querySelector("#fl");
+let files;
+
+button.addEventListener('click',(e)=> {input.click()}
+);
+
+input.addEventListener('change',(e)=>{
+  files= this.files;
+  dropArea.classList.add('active');
+  showFiles(files);
+  dropArea.classList.remove('active');  
+});
+
+dropArea.addEventListener('dragover', (e)=>{
+  e.preventDefault();
+  dropArea.classList.add('active');
+  dragText.textContent='Suelta para subir los archivos';
+})
+
+dropArea.addEventListener('dragleave', (e)=>{
+  dropArea.classList.remove('active');
+  dragText.textContent='Arrastra y suelta el archivo';
+
+})
+
+dropArea.addEventListener('drop', (e)=>{
+  e.preventDefault();
+  files= e.dataTransfer.files;
+  showFiles(files);
+  dropArea.classList.remove('active');
+  dragText.textContent='Arrastra y suelta el archivo';
+
+  const reader = new FileReader();
+  reader.addEventListener('load', (event)=>{          
+        //console.log(event.target.result);
+        let doc = event.target.result;
+        successFunction(doc)          
+      });
+  reader.readAsText(files[0]);
+})
+
+function showFiles(files) {
+  if(files.length === undefined){
+    processFile(file);
+  }else{
+    for (const file of files){
+      processFile(file);
+    }
+    }
+}
+
+function processFile(file){
+  const docType = file.type;
+  console.log(docType);
+  const validExtension = ['text/plain','text/csv'];
+
+  if (validExtension.includes(docType)){
+    
+  }else{
+    alert('Archivo no valido');
+  }
+}
+
+
+
+//FIN DRAG AND DROP------------------------------
 
 
 })
 //-----------fin document.ready
+
+
+
+
+
 const empleado = {
     names: '',
     registros:[

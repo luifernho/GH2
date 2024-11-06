@@ -6,21 +6,27 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="materialize-v1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
     <!--<link rel="stylesheet" href="gh.css">-->
 </head>
 <body>
     <br><br>
-    
-
-    <!--<p id="parrafo">Hello me!</p>
-    <button id="btn1" class="btn">press</button>-->
     <div class="container">
-        <form action="">
-        <label for="f1">Cargar archivo</label><br>
-        <input id="fl" type="file" name="f1">  
-        </form>      
-    </div><br><br><br>
+    <div class="container">
+
+    <div  class="drop-area">
+        <h3>Arrastra y suelta el archivo</h3>
+        <span>O</span><br>
+        <button class="btn">Selecciona tus Archivos</button>
+        <input id="fl" type="file" name="f1" hidden>
+    </div>
+    
+    <div id="preview"></div>
+</div>
+</div>
+    <br><br><br>    
+
     
     <div class="container">
         <img id="img1" src="" alt="">
@@ -28,10 +34,10 @@
     
     <br><br>
 
-    <div class="container">
-        <div class="container">
+    <!-- <div class="container">
+        
         <button id="btn1" class="btn">press</button>
-    </div></div>
+    </div> -->
 
     
     <div id="div1" class="container">
