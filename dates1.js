@@ -32,6 +32,7 @@ $(document).ready(function(){ //Ejecutar funcion "ver" al cargar la pagina y car
         console.log(event.target.result);
         let doc = event.target.result;
         successFunction(doc)
+        dropArea.style.display = "none";
           
       })
       //reader.readAsDataURL(fileList[0]);
@@ -46,6 +47,7 @@ const dropArea = document.querySelector(".drop-area");
 const dragText = dropArea.querySelector("h3");
 const button = dropArea.querySelector("button");
 const input = dropArea.querySelector("#fl");
+const divDrp = document.querySelector("#drp");
 let files;
 
 button.addEventListener('click',(e)=> {input.click()}
@@ -84,6 +86,7 @@ dropArea.addEventListener('drop', (e)=>{
         successFunction(doc)          
       });
   reader.readAsText(files[0]);
+  dropArea.style.display = "none";
 })
 
 function showFiles(files) {
