@@ -377,7 +377,7 @@ function dia(dia){
                       '<tr>\n'+
                         '<th>Día</th>\n'+                        
                         '<th>Fecha</th>\n'+
-                        '<th>Turno</th>\n'+
+                        '<th>Tiempo</th>\n'+
                         '<th>Almuerzo</th>\n'+
                         '<th>Registros</th>\n'+
                       '</tr>\n'+
