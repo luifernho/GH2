@@ -125,8 +125,7 @@ function processFile(file){
 
 const empleado = {
     names: '',
-    registros:[
-              
+    registros:[  
     ],
     diaTurno:[],
     turnoCompleto:[],
@@ -259,6 +258,153 @@ function dia(dia){
   }
   return day
 }
+//---------------------------------------------------------------------
+//calcular Turno Asignado
+
+function TurnoAsign (x){
+  let hour = new Date (x[0]).getHours();
+  let hourFin = new Date (x[x.length-1]).getHours();
+  let minute = new Date(x[0]).getMinutes();
+  let turno;
+
+  if (x.length >1){
+    
+    if((hourFin - hour)>12){
+
+      switch (true){    
+        case ((new Date(2000,0,1,hour,minute) > new Date(2000,0,1,21,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,22,15))
+                ||(new Date(2000,0,1,hour,minute) > new Date(2000,0,1,5,44) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,7,15))  
+              ):
+          turno ="turno 3";
+          break;     
+                    }     
+
+    }else{
+
+        switch (true){    
+          case (new Date(2000,0,1,hour,minute) > new Date(2000,0,1,5,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,6,15)):
+            turno = "turno 1";
+            break;
+          case (new Date(2000,0,1,hour,minute) > new Date(2000,0,1,13,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,14,15)):
+            turno ="turno 2";
+            break;    
+          case (new Date(2000,0,1,hour,minute) > new Date(2000,0,1,7,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,8,15)):
+            turno ="turno 4";
+            break;
+          case (new Date(2000,0,1,hour,minute) > new Date(2000,0,1,10,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,11,15)):
+            turno ="turno 5";
+            break;
+                      }  
+          }
+  }else{
+     switch (true){    
+      case ((new Date(2000,0,1,hour,minute) > new Date(2000,0,1,21,20) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,22,15))
+            ||(new Date(2000,0,1,hour,minute) > new Date(2000,0,1,5,40) && new Date(2000,0,1,hour,minute) <= new Date(2000,0,1,7,15))  
+          ):
+      turno ="turno 3";
+      break;     
+  }
+  } 
+  return turno;
+}
+
+// ---Fin calcular Turno Asignado-------------------------------------------
+
+
+function formatoMinutos(minutos){//Agrega el cero cuando los minutos tienen un solo dígito
+  let minutes = minutos.length ==1 ? `0${minutos}`: minutos;
+  return minutes;
+}
+
+// Calcular Tiempo de Turno-------------------------------------------------
+function timeTurno(diaTurno){
+  let x = diaTurno;
+  let time = new Date(new Date(x.name+' ').getTime() + x.turnoCompleto);
+  let horas = time.getHours();
+  let minutos = formatoMinutos(time.getMinutes().toString());
+  let tiempoTurno = "0:00";
+
+  if (x.registros.length >1){
+    tiempoTurno = `${horas}:${minutos}`;
+  }
+  /*tiempoTurno = new Date(new Date(x.name+' ').getTime() + x.turnoCompleto).getHours()
+      + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString() //formatear en horas y minutos  el total del turno            
+  */ 
+ return tiempoTurno;   
+}
+// Fin Calcular Tiempo de Turno----------------------------------------------
+function FormatoHoraMinuto(miliSeconds){
+  
+  return new Date(new Date(2000,0,1,0,0).getTime()+miliSeconds).getHours()+":"+
+         formatoMinutos(new Date(new Date(2000,0,1,0,0).getTime()+miliSeconds).getMinutes().toString());
+}
+
+// Calcular Tiempo Almuerzo ------------------------------------------------
+function tiempoLunch(registrosDia){
+
+  let x = registrosDia;
+  let timeLunch ="0";
+  let timeInicial= new Date(x.name+' ').getTime();
+  let horaInicio = x.registros[1];
+  let horaFin = x.registros[x.registros.length-2];
+  
+    if(x.registros.length >3){
+
+      if(x.registros.length >4){
+
+        if(new Date(x.registros[0]).getHours() == new Date(x.registros[1]).getHours()){
+          horaInicio = x.registros[2];
+        }else{
+          if(new Date(x.registros[x.registros.length-1]).getHours() == new Date(x.registros[x.registros.length-2]).getHours()){
+            horaFin = x.registros[x.registros.length-3];
+          }
+        }
+      }
+      timeLunch =  new Date(timeInicial + horaFin- horaInicio).getHours() +":"+
+                   formatoMinutos(new Date(timeInicial + horaFin - horaInicio).getMinutes().toString());
+    }
+  return timeLunch;
+}
+
+function tiempo_Lunch(registrosDia){
+  let x = registrosDia;
+  let tiempoLimite = 5400000;
+  let hourIni, minuteIni;
+  let hourFin,minuteFin;
+  let list = [];
+  let timeLunch =0;
+  let listTimeLunch= [];
+
+    if (x.length >1){ 
+    for (let index = 1; index < x.length ; index++) {
+      hourIni = new Date (x[index-1]).getHours();
+      hourFin = new Date (x[index]).getHours();
+      minuteIni = new Date(x[index-1]).getMinutes();
+      minuteFin = new Date(x[index]).getMinutes();
+      timeLunch = x[index] - x[index-1];
+      
+        if (new Date(2000,0,1,hourIni,minuteIni) > new Date(2000,0,1,11,30) && new Date(2000,0,1,hourIni,minuteIni) <= new Date(2000,0,1,14,15)&& 
+              new Date(2000,0,1,hourFin,minuteFin) > new Date(2000,0,1,12,0) && new Date(2000,0,1,hourFin,minuteFin) <= new Date(2000,0,1,15,15)
+              && timeLunch<tiempoLimite && timeLunch>120000){
+          //timeLunch = x[index]-x[index-1];
+          listTimeLunch.push(FormatoHoraMinuto(timeLunch))
+          //break;
+      }else{timeLunch=0}                                                      
+                                        
+    }
+  }
+
+  //listTimeLunch= listTimeLunch.length == 0 ? listTimeLunch.push(FormatoHoraMinuto(3000)):listTimeLunch; 
+  //listTimeLunch.push(0);
+
+  return listTimeLunch.length == 0 ? "0:00":listTimeLunch; 
+  //FormatoHoraMinuto(timeLunch);
+  /*new Date(new Date(2000,0,1,0,0).getTime()+timeLunch).getHours()+":"+
+         formatoMinutos(new Date(new Date(2000,0,1,0,0).getTime()+timeLunch).getMinutes().toString());*/
+}
+//Fin Calcular Tiempo Almuerzo
+
+
 
   // Agregando datos en la tabla-------------------------------------------------
 
@@ -357,7 +503,7 @@ function dia(dia){
 
         var collap = '<div class="container"><ul class="collapsible expandable">\n';
         
-        employes.forEach(x=>(
+        employes.forEach(x=>(//recorrer cada empleado
           console.log(x),
            collap+='<li>\n', 
            collap+='<div class="collapsible-header">\n',
@@ -377,41 +523,43 @@ function dia(dia){
                       '<tr>\n'+
                         '<th>Día</th>\n'+                        
                         '<th>Fecha</th>\n'+
-                        '<th>Turno</th>\n'+
+                        '<th>Tiempo Total</th>\n'+
                         '<th>Almuerzo</th>\n'+
                         '<th>Registros</th>\n'+
+                        '<th>Turno</th>\n'+
                       '</tr>\n'+
                     '</thead>\n'+
-                    '<tbody>\n',
 
+                    '<tbody>\n',
             x.otrodiaTurno.forEach(x=>(console.log(new Date(new Date(x.name).getTime() + x.turnoCompleto).getHours()//recorrer cada día
             + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes()),
             console.log(x.name+' '+new Date(x.name)),            
             collap+='<tr>',
+            //collap+='  --Día Semana->  ', 
             collap+='<td>', 
             collap+= dia(x.name+" "),
-            collap+='</td>', 
+            collap+='</td>',
+            //collap+='  --Fecha->  ',  
             collap+='<td>', 
             collap+= x.name,
             collap+='</td>', 
-            //collap+='  --Turno->  ', 
+            //collap+='  --Tiempo->  ', 
             collap+='<td>',
-            collap+= new Date(
-              new Date(x.name+' ').getTime() 
-            + x.turnoCompleto).getHours()
-            + ':' + new Date(new Date(x.name).getTime() + x.turnoCompleto).getMinutes().toString(), //formatear en horas y minutos  el total del turno            
+            collap+= timeTurno(x),
             collap+='</td>',  
             //collap+='--Almuerzo->',
             collap+='<td>',          
-            collap+= new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getHours()+":"+
-                     new Date(x.registros[x.registros.length-2]- x.registros[1]+new Date(x.name+' ').getTime()).getMinutes(),
+            collap+= tiempo_Lunch(x.registros),
             //collap+="--",
             collap+='</td>',
             //collap+=" -- Registros -->",
             collap+='<td>',
-
-
-                x.registros.forEach(r=>(collap+=" -- "+new Date(r).getHours()+":"+ new Date(r).getMinutes() +"--")),//recorrer los registros del día  
+                x.registros.forEach(r=>(collap+=" -- "+new Date(r).getHours()+":"+ formatoMinutos(new Date(r).getMinutes().toString()) +"--")),//recorrer los registros del día  
+            collap+='</td>',
+            //collap+=" -- Turno Asignado -->",
+            collap+='<td>',
+            collap+= TurnoAsign(x.registros),
+            /*collap+= TurnoAsign(x.registros),*/
             collap+='</td>',
             collap+='</tr>'        
                    
